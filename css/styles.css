@@ -1,10 +1,13 @@
 body {
   background-color: mediumvioletred;
-  text-align: center;
 }
 
 h1 {
   color: antiquewhite;
+  text-align: center;
+}
+footer {
+  text-align: center;
 }
 a {
   color: antiquewhite;

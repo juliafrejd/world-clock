@@ -1,44 +1,64 @@
 function updateTime() {
   let losAngelesElement = document.querySelector("#los-angeles");
-  let losAngelesDateElement = losAngelesElement.querySelector(".date");
-  let losAngelesTimeElement = losAngelesElement.querySelector(".time");
-  let losAngelesTime = moment().tz("America/Los_Angeles");
+  if (losAngelesElement) {
+    let losAngelesDateElement = losAngelesElement.querySelector(".date");
+    let losAngelesTimeElement = losAngelesElement.querySelector(".time");
+    let losAngelesTime = moment().tz("America/Los_Angeles");
 
-  losAngelesDateElement.innerHTML = losAngelesTime.format("dddd, MMMM Do YYYY");
-  losAngelesTimeElement.innerHTML = `${losAngelesTime.format(
-    "hh:mm:ss [<small>]A[</small>]"
-  )} `;
+    losAngelesDateElement.innerHTML =
+      losAngelesTime.format("dddd, MMMM Do YYYY");
+    losAngelesTimeElement.innerHTML = `${losAngelesTime.format(
+      "hh:mm:ss [<small>]A[</small>]"
+    )} `;
+  }
+  let kievElement = document.querySelector("#kiev");
+  if (kievElement) {
+    let kievDateElement = kievElement.querySelector(".date");
+    let kievTimeElement = kievElement.querySelector(".time");
+    let kievTime = moment().tz("Europe/Kiev");
 
-  let KievElement = document.querySelector("#kiev");
-  let KievDateElement = KievElement.querySelector(".date");
-  let KievTimeElement = KievElement.querySelector(".time");
-  let KievTime = moment().tz("Europe/Kiev");
+    kievDateElement.innerHTML = kievTime.format("dddd, MMMM Do YYYY");
+    kievTimeElement.innerHTML = `${kievTime.format(
+      "hh:mm:ss [<small>]A[</small>]"
+    )} `;
+  }
 
-  KievDateElement.innerHTML = KievTime.format("dddd, MMMM Do YYYY");
-  KievTimeElement.innerHTML = `${KievTime.format(
-    "hh:mm:ss [<small>]A[</small>]"
-  )} `;
+  let sydneyElement = document.querySelector("#sydney");
+  if (sydneyElement) {
+    let sydneyDateElement = sydneyElement.querySelector(".date");
+    let sydneyTimeElement = sydneyElement.querySelector(".time");
+    let sydneyTime = moment().tz("Australia/Sydney");
 
-  let SydneyElement = document.querySelector("#sydney");
-  let SydneyDateElement = SydneyElement.querySelector(".date");
-  let SydneyTimeElement = SydneyElement.querySelector(".time");
-  let SydneyTime = moment().tz("Australia/Sydney");
+    sydneyDateElement.innerHTML = sydneyTime.format("dddd, MMMM Do YYYY");
+    sydneyTimeElement.innerHTML = `${sydneyTime.format(
+      "hh:mm:ss [<small>]A[</small>]"
+    )} `;
+  }
+}
 
-  SydneyDateElement.innerHTML = SydneyTime.format("dddd, MMMM Do YYYY");
-  SydneyTimeElement.innerHTML = `${SydneyTime.format(
-    "hh:mm:ss [<small>]A[</small>]"
-  )} `;
-
-  let LondonElement = document.querySelector("#london");
-  let LondonDateElement = LondonElement.querySelector(".date");
-  let LondonTimeElement = LondonElement.querySelector(".time");
-  let LondonTime = moment().tz("Europe/London");
-
-  LondonDateElement.innerHTML = LondonTime.format("dddd, MMMM Do YYYY");
-  LondonTimeElement.innerHTML = `${LondonTime.format(
-    "hh:mm:ss [<small>]A[</small>]"
-  )} `;
+function updateCity(event) {
+  let cityTimeZone = event.target.value;
+  let cityName = cityTimeZone.replace(`_`, ` `).split("/")[1];
+  let cityTime = moment().tz(cityTimeZone);
+  let citiesElement = document.querySelector("#cities");
+  citiesElement.innerHTML = `
+  <div class="city">
+          <div>
+            <h2>${cityName}</h2>
+            <div class="date">${cityTime.format("dddd, MMMM Do YYYY")}</div>
+          </div>
+          <div>
+            <div class="time">${cityTime.format(
+              "hh:mm:ss [<small>]A[</small>]"
+            )}
+            </div>
+          </div>
+    </div>
+  `;
 }
 
 updateTime();
 setInterval(updateTime, 1000);
+let citiesSelectElement = document.querySelector("#city");
+
+citiesSelectElement.addEventListener("change", updateCity);
